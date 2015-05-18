@@ -1,9 +1,12 @@
---
-layout: post
-title: 学无止境
-category: technology
-description: 学习如逆水行舟，不进则退。
 ---
+layout: post
+title: Technology
+category: technology
+description: 技术改变命运。
+---
+# [{{ page.title }}][1]
+2015-05-13 By {{ site.author_info }}
 
-[MicLee]:    http://ofmiclee.github.com  "MicLee"
-~
+
+[MicLee]   http://ofmiclee.github.io  "MicLee"
+[1]:    {{ page.url}}  ({{ page.title }})
