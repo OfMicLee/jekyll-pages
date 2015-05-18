@@ -9,4 +9,3 @@ category: blog
 
 
 
-[MicLee]:    http://ofmiclee.github.io  "MicLee"
