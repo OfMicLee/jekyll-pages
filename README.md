@@ -1,6 +1,6 @@
 ## Welcome to MicLee's Blog!
 
-#新建博文：
+新建博文：
 － 1. '''rake post title="A Title" [category="category"] [date="2012-02-09"] [tags=[tag1,tag2]] '''
 
 
