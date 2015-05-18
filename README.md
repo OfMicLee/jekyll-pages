@@ -2,9 +2,9 @@
 
 - 新建博文：
 
-  ```rake post title="A Title" [category="category"] [date="2012-02-09"] [tags=[tag1,tag2]] ```
+  ```rake post title="A Title" [category="category"] [date="2015-05-18"] [tags=[nodejs,javascript,...]] ```
 
-  分类默认blog，生成文件自动到分类目录下
+  category默认blog，date默认当前时间，生成文件自动到分类目录下
 
 - 新建文件
 
