@@ -38,17 +38,17 @@ task :post do
   title = ENV["title"] || "new-post"
   tags = ENV["tags"] || "[]"
   category = ENV["category"] || "blog"
-  category = "\"#{category.gsub(/-/,' ')}\"" if !category.empty?
-  slug = title.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
-  filepath = File.join(Config['posts'], "#{category}") 
-  abort("rake aborted: '#{filepath}' directory not found.") unless FileTest.directory?('#{filepath}')
+  slug_cate = category.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
+  slug_title = title.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
+  filepath = File.join("#{CONFIG['posts']}", "#{slug_cate}")
+  abort("rake aborted: '#{filepath}' directory not found.") unless FileTest.directory?("#{filepath}")
   begin
     date = (ENV['date'] ? Time.parse(ENV['date']) : Time.now).strftime('%Y-%m-%d')
   rescue => e
     puts "Error - date format must be YYYY-MM-DD, please check you typed it correctly!"
     exit -1
   end
-  filename = File.join("#{filepath}", "#{date}-#{slug}.#{CONFIG['post_ext']}")
+  filename = File.join("#{filepath}", "#{date}-#{slug_title}.#{CONFIG['post_ext']}")
   if File.exist?(filename)
     abort("rake aborted!") if ask("#{filename} already exists. Do you want to overwrite?", ['y', 'n']) == 'n'
   end
@@ -59,7 +59,7 @@ task :post do
     post.puts "layout: post"
     post.puts "title: \"#{title.gsub(/-/,' ')}\""
     post.puts 'description: ""'
-    post.puts "category: #{category}"
+    post.puts "category: \"#{category.gsub(/-/,' ')}\""
     post.puts "tags: #{tags}"
     post.puts "---"
     post.puts "{% include JB/setup %}"
