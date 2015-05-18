@@ -2,7 +2,7 @@
 
 - 新建博文：
 
-  ```rake post title="A Title" [category="category"] [date="2015-05-18"] [tags=[nodejs,javascript,...]] ```
+  ```rake post title="qianmi.com" [category="category"] [date="2015-05-18"] [tags=[nodejs,javascript,...]] ```
 
   category默认blog，date默认当前时间，生成文件自动到分类目录下
 
