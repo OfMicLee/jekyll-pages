@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--
+    * Author:         MicLee
+    -->
+    <meta charset="utf-8" />
+    <title>CommonJS规范 | MicLee's Blog</title>
+    <meta name="author" content="MicLee" />
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="MicLee's Blog" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="/css/default.css" type="text/css" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+    <script src="/js/jquery-1.7.1.min.js" type="text/javascript"></script>
+</head>
+<body>
+
+    <div class="home-menu">
+        <div class="home-icon-con">
+            <a class="home-menu-icon" href="/">MicLee</a>
+            <a class="home-follow" href="#" title="Contact Me">+</a>
+        </div>
+        <div class="home-contact">
+            <a href="http://www.weibo.com/helloensen/" target="_blank" style="margin-left:-5px;"><img src="http://www.weibo.com/favicon.ico" alt="" width="25"/></a>
+            <a href="http://github.com/OfMicLee/" target="_blank" style="text-align:center;"><img src="/images/github.ico" alt="" width="22"/></a>
+           <!--  <a href="http://instagram.com/miclee/" target="_blank" style="text-align:right"><img src="http://d36xtkk24g8jdx.cloudfront.net/bluebar/00c6602/images/ico/favicon.ico" alt="" width="22"/></a>
+	  -->       
+ 	</div>
+    </div>
+
+    <link rel="stylesheet" href="/js/prettify/prettify.css" />
+<style type="text/css">
+    body { background:#e8e8e8; }
+    @media screen and (max-width: 750px){
+        body { background:#fff; }
+    }
+    @media screen and (max-width: 1020px){
+        body { background:#fff; }
+    }
+</style>
+
+<div id="content">
+    <div class="entry">
+        <h1 class="entry-title"><a href="/commonjs" title="CommonJS规范">CommonJS规范</a></h1>
+        <p class="entry-date">2015-05-18 <a href="http://github.com/OfMicLee">MicLee</a></p>
+        <h2>概述</h2>
+
+<p>CommonJS是服务器模块的规范，Node.js采用了这个规范。</p>
+
+<p>根据CommonJS规范，一个单独的文件就是一个模块。每一个模块都是一个单独的作用域，也就是说，在一个文件定义的变量（还包括函数和类），都是私有的，对其他文件是不可见的。</p>
+
+<pre><code class="javascript">var x = 5;
+var addX = function(value) {
+  return value + x;
+};
+</code></pre>
+
+<p>上面代码中，变量x和函数addX，是当前文件私有的，其他文件不可见。</p>
+
+<p>如果想在多个文件分享变量，必须定义为global对象的属性。</p>
+
+<pre><code class="javascript">global.warning = true;
+</code></pre>
+
+<p>上面代码的waining变量，可以被所有文件读取。当然，这样写法是不推荐的。</p>
+
+<p>CommonJS规定，每个文件的对外接口是module.exports对象。这个对象的所有属性和方法，都可以被其他文件导入。</p>
+
+<pre><code class="javascript">var x = 5;
+var addX = function(value) {
+  return value + x;
+};
+module.exports.x = x;
+module.exports.addX = addX;
+</code></pre>
+
+<p>上面代码通过module.exports对象，定义对外接口，输出变量x和函数addX。module.exports对象是可以被其他文件导入的，它其实就是文件内部与外部通信的桥梁。</p>
+
+<p>require方法用于在其他文件加载这个接口，具体用法参见《Require命令》的部分。</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">example</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./example.js&#39;</span><span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">example</span><span class="p">.</span><span class="nx">x</span><span class="p">);</span> <span class="c1">// 5</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">addX</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span> <span class="c1">// 6</span></code></pre></div>
+
+
+<h2>module对象</h2>
+
+<p>每个模块都有一个module变量，该变量指向当前模块。module不是全局变量，而是每个模块都有的本地变量。</p>
+
+<ul>
+<li>module.id 模块的识别符，通常是带有绝对路径的模块文件名。</li>
+<li>module.filename 模块的文件名。</li>
+<li>module.loaded 返回一个布尔值，表示模块是否已经完成加载。</li>
+<li>module.parent 返回一个对象，表示调用该模块的模块。</li>
+<li>module.children 返回一个数组，表示该模块要用到的其他模块。</li>
+</ul>
+
+
+<p>下面是一个示例文件，最后一行输出module变量。</p>
+
+<pre><code class="javascript">// example.js
+var jquery = require('jquery');
+exports.$ = jquery;
+console.log(module);
+</code></pre>
+
+<p>执行这个文件，命令行会输出如下信息。</p>
+
+<pre><code class="javascript">{ id: '.',
+  exports: { '$': [Function] },
+  parent: null,
+  filename: '/path/to/example.js',
+  loaded: false,
+  children:
+   [ { id: '/path/to/node_modules/jquery/dist/jquery.js',
+       exports: [Function],
+       parent: [Circular],
+       filename: '/path/to/node_modules/jquery/dist/jquery.js',
+       loaded: true,
+       children: [],
+       paths: [Object] } ],
+  paths:
+   [ '/home/user/deleted/node_modules',
+     '/home/user/node_modules',
+     '/home/node_modules',
+     '/node_modules' ]
+}
+</code></pre>
+
+<h3>module.exports属性</h3>
+
+<p>module.exports属性表示当前模块对外输出的接口，其他文件加载该模块，实际上就是读取module.exports变量。</p>
+
+<pre><code class="javascript">var EventEmitter = require('events').EventEmitter;
+module.exports = new EventEmitter();
+
+setTimeout(function() {
+  module.exports.emit('ready');
+}, 1000);
+</code></pre>
+
+<p>上面模块会在加载后1秒后，发出ready事件。其他文件监听该事件，可以写成下面这样。</p>
+
+<pre><code class="javascript">var a = require('./a');
+a.on('ready', function() {
+  console.log('module a is ready');
+});
+</code></pre>
+
+<h3>exports变量</h3>
+
+<p>为了方便，Node为每个模块提供一个exports变量，指向module.exports。这等同在每个模块头部，有一行这样的命令。</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">exports</span> <span class="o">=</span> <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">;</span></code></pre></div>
+
+
+<p>造成的结果是，在对外输出模块接口时，可以向exports对象添加方法。</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">exports</span><span class="p">.</span><span class="nx">area</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span> <span class="o">*</span> <span class="nx">r</span> <span class="o">*</span> <span class="nx">r</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">circumference</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span> <span class="o">*</span> <span class="nx">r</span><span class="p">;</span>
+<span class="p">};</span></code></pre></div>
+
+
+<p>注意，不能直接将exports变量指向一个函数。因为这样等于切断了exports与module.exports的联系。</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);};</span></code></pre></div>
+
+
+<p>上面这样的写法是无效的，因为它切断了exports与module.exports之间的链接。</p>
+
+<p>下面的写法也是无效的。</p>
+
+<pre><code class="javascript">exports.hello = function() {
+  return 'hello';
+};
+
+module.exports = 'Hello world';
+</code></pre>
+
+<p>上面代码中，hello函数是无法对外输出的，因为<code>module.exports</code>被重新赋值了。</p>
+
+<p>如果一个模块的对外接口，就是一个函数或对象时，不能使用exports输出，只能使用module.exports输出。</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);};</span></code></pre></div>
+
+
+<p>如果你觉得，exports与module.exports之间的区别很难分清，一个简单的处理方法，就是放弃使用exports，只使用module.exports。</p>
+
+<h2>AMD规范与CommonJS规范的兼容性</h2>
+
+<p>CommonJS规范加载模块是同步的，也就是说，只有加载完成，才能执行后面的操作。AMD规范则是非同步加载模块，允许指定回调函数。由于Node.js主要用于服务器编程，模块文件一般都已经存在于本地硬盘，所以加载起来比较快，不用考虑非同步加载的方式，所以CommonJS规范比较适用。但是，如果是浏览器环境，要从服务器端加载模块，这时就必须采用非同步模式，因此浏览器端一般采用AMD规范。</p>
+
+<p>AMD规范使用define方法定义模块，下面就是一个例子：</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">define</span><span class="p">([</span><span class="s1">&#39;package/lib&#39;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">lib</span><span class="p">){</span>
+  <span class="kd">function</span> <span class="nx">foo</span><span class="p">(){</span>
+    <span class="nx">lib</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;hello world!&#39;</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="nx">foo</span>
+  <span class="p">};</span>
+<span class="p">});</span></code></pre></div>
+
+
+<p>AMD规范允许输出的模块兼容CommonJS规范，这时define方法需要写成下面这样：</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">define</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">require</span><span class="p">,</span> <span class="nx">exports</span><span class="p">,</span> <span class="nx">module</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">someModule</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;someModule&quot;</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">anotherModule</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;anotherModule&quot;</span><span class="p">);</span>
+
+  <span class="nx">someModule</span><span class="p">.</span><span class="nx">doTehAwesome</span><span class="p">();</span>
+  <span class="nx">anotherModule</span><span class="p">.</span><span class="nx">doMoarAwesome</span><span class="p">();</span>
+
+  <span class="nx">exports</span><span class="p">.</span><span class="nx">asplode</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(){</span>
+    <span class="nx">someModule</span><span class="p">.</span><span class="nx">doTehAwesome</span><span class="p">();</span>
+    <span class="nx">anotherModule</span><span class="p">.</span><span class="nx">doMoarAwesome</span><span class="p">();</span>
+  <span class="p">};</span>
+<span class="p">});</span></code></pre></div>
+
+
+<h2>require命令</h2>
+
+<h3>基本用法</h3>
+
+<p>Node.js使用CommonJS模块规范，内置的require命令用于加载模块文件。</p>
+
+<p>require命令的基本功能是，读入并执行一个JavaScript文件，然后返回该模块的exports对象。如果没有发现指定模块，会报错。</p>
+
+<pre><code class="javascript">// example.js
+var invisible = function () {
+  console.log("invisible");
+}
+
+exports.message = "hi";
+
+exports.say = function () {
+  console.log(message);
+}
+</code></pre>
+
+<p>运行下面的命令，可以输出exports对象。</p>
+
+<pre><code class="javascript">var example = require('./example.js');
+example
+// {
+//   message: "hi",
+//   say: [Function]
+// }
+</code></pre>
+
+<p>如果模块输出的是一个函数，那就不能定义在exports对象上面，而要定义在<code>module.exports</code>变量上面。</p>
+
+<pre><code class="javascript">module.exports = function () {
+  console.log("hello world")
+}
+
+require('./example2.js')()
+</code></pre>
+
+<p>上面代码中，require命令调用自身，等于是执行<code>module.exports</code>，因此会输出 hello world。</p>
+
+<h3>加载规则</h3>
+
+<p>require命令接受模块名作为参数。</p>
+
+<p>（1）如果参数字符串以“/”开头，则表示加载的是一个位于绝对路径的模块文件。比如，<code>require('/home/marco/foo.js')</code>将加载/home/marco/foo.js。</p>
+
+<p>（2）如果参数字符串以“./”开头，则表示加载的是一个位于相对路径（跟当前执行脚本的位置相比）的模块文件。比如，<code>require('./circle')</code>将加载当前脚本同一目录的circle.js。</p>
+
+<p>（3）如果参数字符串不以“./“或”/“开头，则表示加载的是一个默认提供的核心模块（位于Node的系统安装目录中），或者一个位于各级node_modules目录的已安装模块（全局安装或局部安装）。</p>
+
+<p>举例来说，脚本<code>/home/user/projects/foo.js</code>执行了<code>require('bar.js')</code>命令，Node会依次搜索以下文件。</p>
+
+<ul>
+<li>/home/user/projects/node_modules/bar.js</li>
+<li>/home/user/node_modules/bar.js</li>
+<li>/home/node_modules/bar.js</li>
+<li>/node_modules/bar.js</li>
+</ul>
+
+
+<p>这样设计的目的是，使得不同的模块可以将所依赖的模块本地化。</p>
+
+<p>（4）如果传入require方法的是一个目录，那么require会先查看该目录的package.json文件，然后加载main字段指定的脚本文件。否则取不到main字段，则会加载<code>index.js</code>文件或<code>index.node</code>文件。</p>
+
+<p>举例来说，下面是一行普通的require命令语句。</p>
+
+<pre><code class="javascript">var utils = require( "utils" );
+</code></pre>
+
+<p>Node寻找utils脚本的顺序是，首先寻找核心模块，然后是全局安装模块，接着是项目安装的模块。</p>
+
+<pre><code class="bash">[
+  '/usr/local/lib/node',
+  '~/.node_modules',
+  './node_modules/utils.js',
+  './node_modules/utils/package.json',
+  './node_modules/utils/index.js'
+]
+</code></pre>
+
+<p>（5）如果指定的模块文件没有发现，Node会尝试为文件名添加.js、.json、.node后，再去搜索。.js文件会以文本格式的JavaScript脚本文件解析，.json文件会以JSON格式的文本文件解析，.node文件会议编译后二进制文件解析。</p>
+
+<p>（6）如果想得到require命令加载的确切文件名，使用require.resolve()方法。</p>
+
+<h3>模块的缓存</h3>
+
+<p>第一次加载某个模块时，Node会缓存该模块。以后再加载该模块，就直接从缓存取出该模块的exports属性。</p>
+
+<pre><code class="javascript">require('./example.js');
+require('./example.js').message = "hello";
+require('./example.js').message
+// "hello"
+</code></pre>
+
+<p>上面代码中，连续三次使用require命令，加载同一个模块。第二次加载的时候，为输出的对象添加了一个message属性。但是第三次加载的时候，这个message属性依然存在，这就证明require命令并没有重新加载模块文件，而是输出了缓存。</p>
+
+<p>如果想要多次执行某个模块，可以输出一个函数，然后多次调用这个函数。</p>
+
+<p>缓存是根据绝对路径识别模块的，如果同样的模块名，但是保存在不同的路径，require命令还是会重新加载该模块。</p>
+
+<h3>模块的循环加载</h3>
+
+<p>如果发生模块的循环加载，即A加载B，B又加载A，则B将加载A的不完整版本。</p>
+
+<pre><code class="javascript">// a.js
+exports.x = 'a1';
+console.log('a.js ', require('./b.js').x);
+exports.x = 'a2';
+
+// b.js
+exports.x = 'b1';
+console.log('b.js ', require('./a.js').x);
+exports.x = 'b2';
+
+// main.js
+console.log('main.js ', require('./a.js').x);
+console.log('main.js ', require('./b.js').x);
+</code></pre>
+
+<p>上面代码是三个JavaScript文件。其中，a.js加载了b.js，而b.js又加载a.js。这时，Node返回a.js的不完整版本，所以执行结果如下。</p>
+
+<pre><code class="bash">$ node main.js
+b.js  a1
+a.js  b2
+main.js  a2
+main.js  b2
+</code></pre>
+
+<p>修改main.js，再次加载a.js和b.js。</p>
+
+<pre><code class="javascript">// main.js
+console.log('main.js ', require('./a.js').x);
+console.log('main.js ', require('./b.js').x);
+console.log('main.js ', require('./a.js').x);
+console.log('main.js ', require('./b.js').x);
+</code></pre>
+
+<p>执行上面代码，结果如下。</p>
+
+<pre><code class="bash">$ node main.js
+b.js  a1
+a.js  b2
+main.js  a2
+main.js  b2
+main.js  a2
+main.js  b2
+</code></pre>
+
+<p>上面代码中，第二次加载a.js和b.js时，会直接从缓存读取exports属性，所以a.js和b.js内部的console.log语句都不会执行了。</p>
+
+<h3>require.main</h3>
+
+<p>正常的脚本调用时，require.main属性指向模块本身。</p>
+
+<pre><code class="javascript">require.main === module
+// true
+</code></pre>
+
+<p>如果是在REPL环境使用require命令，则上面的表达式返回false。</p>
+
+<p>通过require.main属性，可以获取模块的信息。比如，module对象有一个filename属性（正常情况下等于 __filename），可以通过require.main.filename属性，得知当前模块的入口文件。</p>
+
+<h2>参考链接</h2>
+
+<ul>
+<li>Addy Osmani, <a href="http://addyosmani.com/writing-modular-js/">Writing Modular JavaScript With AMD, CommonJS &amp; ES Harmony</a></li>
+<li>Pony Foo, <a href="http://blog.ponyfoo.com/2014/08/25/a-gentle-browserify-walkthrough">A Gentle Browserify Walkthrough</a></li>
+<li>Nico Reed, [What is require?]（https://docs.nodejitsu.com/articles/getting-started/what-is-require）</li>
+</ul>
+
+
+    </div>
+    <!--
+    <div class="sidenav">
+        <iframe width="100%" height="75" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=75&fansRow=2&ptype=1&speed=0&skin=5&isTitle=0&noborder=0&isWeibo=0&isFans=0&uid=1855270953&verifier=375b89d6&dpc=1"></iframe>
+    </div>-->
+
+    <div class="sidenav">
+        <h2>Blog</h2>
+        <ul class="artical-list">
+        
+            <li><a href="/markdown-syntax">Markdown Syntax</a></li>
+        
+        </ul>
+
+        <h2>Technology</h2>
+        <ul class="artical-list">
+        
+            <li><a href="/nodejs-basic">Node.js 概述</a></li>
+        
+            <li><a href="/commonjs">CommonJS规范</a></li>
+        
+        </ul>
+
+        <h2>Life</h2>
+        <ul class="artical-list">
+        
+        </ul>
+    </div>
+</div>
+
+<script src="/js/post.js" type="text/javascript"></script>
+
+
+    <script type="text/javascript">
+        $(function(){
+            $('.home-follow').click(function(e){
+                e.preventDefault();
+
+                if($('.home-contact').is(':visible')){
+                    $('.home-contact').slideUp(100);
+                }else{
+                    $('.home-contact').slideDown(100);
+                }
+            });
+        })
+    </script>
+</body>
+</html>
