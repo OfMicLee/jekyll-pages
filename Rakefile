@@ -38,7 +38,8 @@ task :post do
   title = ENV["title"] || "new-post"
   tags = ENV["tags"] || "[]"
   category = ENV["category"] || "blog"
-  slug_cate = category.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
+  #slug_cate = category.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
+  slug_cate = category.downcase.strip.gsub(' ', '-')
   slug_title = title.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
   filepath = File.join("#{CONFIG['posts']}", "#{slug_cate}")
   abort("rake aborted: '#{filepath}' directory not found.") unless FileTest.directory?("#{filepath}")
