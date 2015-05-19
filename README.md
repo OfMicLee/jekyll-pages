@@ -12,3 +12,7 @@
 
   name可以为子路径，类似"blog/about.html"
   name不包含文件扩展类型，默认在路径下生成"index.html"
+
+- 本地运行
+
+  ```rake preview```
