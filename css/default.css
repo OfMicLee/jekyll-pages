@@ -89,8 +89,8 @@ pre ol{margin-left:25px;list-style-type:decimal;}
 .nodejs .aside{
     background-image:url(/images/nodejs.png);
 }
-.life .aside{
-    background-image:url(/images/life.png);
+.other .aside{
+    background-image:url(/images/other.png);
 }
 .index-content .section { margin-left:30%; padding-top:80px; padding-right:15%; ;}
 
@@ -166,8 +166,8 @@ h3.about {color:#777;margin-top:20px;font-size:22px;margin-bottom:10px}
     .index-content .artical-cate { margin-top:50px; }
 
     .blog .aside,
-    .life .aside,
-    .technology .aside {display:none;background-image:none;}
+    .other .aside,
+    .nodejs .aside {display:none;background-image:none;}
 }
 
 @media (max-width: 1020px){

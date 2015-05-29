@@ -7,7 +7,7 @@ layout: home
         <ul class="artical-cate">
             <li class="on"><a href="/"><span>Blog</span></a></li>
             <li style="text-align:center"><a href="/nodejs"><span>Nodejs</span></a></li>
-            <li style="text-align:right"><a href="/life"><span>Life</span></a></li>
+            <li style="text-align:right"><a href="/other"><span>技术综合</span></a></li>
         </ul>
 
         <div class="cate-bar"><span id="cateBar"></span></div>
