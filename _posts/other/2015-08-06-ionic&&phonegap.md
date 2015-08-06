@@ -23,12 +23,13 @@ Ionic提供了一个免费且开源的移动优化HTML、CSS和JS 组件库，�
 
 - 3、增加平台
   ```shell
+  $ cd hosjoy
   $ ionic platform add ios
   ```
 
 - 4、更改config.xml
   ```shell
-  $ vi hosjoy/platforms/ios/HelloCordova/config.xml
+  $ vi ./config.xml
   ```
   ```html
   <content src="index.html" />
