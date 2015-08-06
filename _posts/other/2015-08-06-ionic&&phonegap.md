@@ -12,37 +12,44 @@ Ionic提供了一个免费且开源的移动优化HTML、CSS和JS 组件库，�
 ## How to use
 
 - 1、 安装ionic
-
-  npm install -g cordova ionic
+  ```shell
+  $ npm install -g cordova ionic
+  ```
 
 - 2、初始化项目
-
-  ionic start hosjoy
-
-- 3、更改config.xml
-
   ```shell
-  $ vi ionic/hosjoy/platforms/ios/HelloCordova/config.xml
+  $ ionic start hosjoy
+  ```
+
+- 3、增加平台
+  ```shell
+  $ ionic platform add ios
+  ```
+
+- 4、更改config.xml
+  ```shell
+  $ vi hosjoy/platforms/ios/HelloCordova/config.xml
   ```
   ```html
   <content src="index.html" />
-  ```
   改为
-  ```html
   <content src="http://m.ttmai.com" />
   ```
 
-- 4、构建APP
+- 5、构建APP
+  ```shell
+  $ ionic build ios
+  ```
 
-  ionic build ios
+- 6、模拟器打开APP
+  ```shell
+  $ ionic emulate ios
+  ```
 
-- 5、模拟器打开APP
-
-  ionic emulate ios
-
-- 6、部署到设备
-
-  ionic run ios
+- 7、部署到设备
+  ```shell
+  $ ionic run ios
+  ```
 
 ##Ionic VS PhoneGap
 
