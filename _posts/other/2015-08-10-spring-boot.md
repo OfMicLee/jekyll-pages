@@ -2,7 +2,7 @@
 layout: post
 title: "spring-boot快速开发spring应用"
 description: "使用spring-boot快速创建和运行一个spring 应用"
-category: "blog"
+category: "other"
 tags: [spring, spring-boot]
 ---
 
