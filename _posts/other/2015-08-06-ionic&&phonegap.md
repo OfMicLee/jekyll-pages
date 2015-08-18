@@ -42,6 +42,7 @@ Ionic提供了一个免费且开源的移动优化HTML、CSS和JS 组件库，�
   ```
 
 - 5、修改图标和启动页面
+
   ```html
   <icon src="resources/icon.png"/>
   ```
