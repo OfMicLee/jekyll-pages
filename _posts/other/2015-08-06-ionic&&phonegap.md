@@ -54,19 +54,19 @@ Ionic提供了一个免费且开源的移动优化HTML、CSS和JS 组件库，�
   ionic resources
   ```
 
-- 5、构建APP
+- 6、构建APP
 
   ```shell
   $ ionic build ios
   ```
 
-- 6、模拟器打开APP
+- 7、模拟器打开APP
 
   ```shell
   $ ionic emulate ios
   ```
 
-- 7、部署到设备
+- 8、部署到设备
   xcode
 
 ##Ionic VS PhoneGap
