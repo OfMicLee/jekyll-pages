@@ -41,6 +41,19 @@ Ionic提供了一个免费且开源的移动优化HTML、CSS和JS 组件库，�
   <content src="http://m.ttmai.com" />
   ```
 
+- 5、修改图标和启动页面
+  ```html
+  <icon src="resources/icon.png"/>
+  ```
+
+  图标名称：icon.png， 大小192*192PX；
+  启动页名称：splash.png，大小2208*2208PX；
+  支持格式：.png/.ai/.psd
+
+  ```shell
+  ionic resources
+  ```
+
 - 5、构建APP
 
   ```shell
@@ -54,10 +67,7 @@ Ionic提供了一个免费且开源的移动优化HTML、CSS和JS 组件库，�
   ```
 
 - 7、部署到设备
-
-  ```shell
-  $ ionic run ios
-  ```
+  xcode
 
 ##Ionic VS PhoneGap
 
