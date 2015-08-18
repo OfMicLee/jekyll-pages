@@ -46,8 +46,10 @@ Ionic提供了一个免费且开源的移动优化HTML、CSS和JS 组件库，�
   <icon src="resources/icon.png"/>
   ```
 
-  图标名称：icon.png， 大小192*192PX；
-  启动页名称：splash.png，大小2208*2208PX；
+  图标名称：icon.png， 大小192PX；
+
+  启动页名称：splash.png，大小2208PX；
+
   支持格式：.png/.ai/.psd
 
   ```shell
