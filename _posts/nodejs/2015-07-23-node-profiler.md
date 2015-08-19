@@ -6,8 +6,8 @@ category: "nodejs"
 tags: [nodejs,javascript,debug]
 ---
 
-Node Profiler — JavaScript性能调优工具
-===============
+>Node Profiler — JavaScript性能调优工具
+
 
 ##特点
 - 基于Node.js开发
@@ -75,6 +75,7 @@ $ab -n1000 -c10 http://localhost:2014/
 可以看到更多关于函数在运行时的信息。
 
 ### UI含义
+
 UI 栏目 | 示意
 ----   | ----
 Self | exclusive time
