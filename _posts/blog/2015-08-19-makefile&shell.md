@@ -6,7 +6,7 @@ category: "blog"
 tags: []
 ---
 
-> ####在Makefile可以调用shell脚本，但是Makefile和shell脚本是不同的。本文试着归纳一下Makefile和shell脚本的不同。
+>在Makefile可以调用shell脚本，但是Makefile和shell脚本是不同的。本文试着归纳一下Makefile和shell脚本的不同。
 
 - ####1）shell中所有引用以$打头的变量其后要加{},而在Makefile中的变量是以$打头的后加()。
 
