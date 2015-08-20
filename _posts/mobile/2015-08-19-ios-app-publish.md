@@ -97,16 +97,7 @@ tags: [ios,app,publish]
 - #### 命名并生成描述文件
   eg. Hosjoy Home APP Profile
 
-## 5、在iTunes Connect里添加你的APP
-- #### iTunes Connect -> 我的APP -> 新建IOS APP
-  - 名称：App 在 App Store 中显示的名称
-  - 版本：与 Xcode 中所使用的版本号相符
-  - 语言：Simplified Chinese
-  - SKU：一个独特的、不会在 App Store 中显示的 App ID
-  - 套装ID：选择一个前面创建的 APP ID ，必须与 Xcode 中使用的 BundleID 相符
-  - 其他：图标（1024jpg）、联系人信息、版权信息等等
-
-## 6、打包ipa
+## 5、打包ipa
 - #### 双击生成的描述文件，导入xcode
 - #### 配置xcode
   - TARGENTS -> INFO 里填写项目相关信息，要与前面生成描述文件的信息一致
@@ -116,5 +107,18 @@ tags: [ios,app,publish]
 - #### 打包
   - Product -> Archive (如果为灰色，插入真机设备再试)
 
-## 7、发布
+## 6、上传版本至APP STORE
 - 使用xcode或者Application Loader
+
+
+## 7、在iTunes Connect里添加你的APP
+- #### iTunes Connect -> 我的APP -> 新建IOS APP
+  - 名称：App 在 App Store 中显示的名称
+  - 版本：与 Xcode 中所使用的版本号相符
+  - 语言：Simplified Chinese
+  - SKU：一个独特的、不会在 App Store 中显示的 App ID
+  - 套装ID：选择一个前面创建的 APP ID ，必须与 Xcode 中使用的 BundleID 相符
+  - 其他：图标（1024jpg）、联系人信息、版权信息、评级等等
+  - 版本信息：选择上一步上传到app store的版本
+
+## 8、大功告成，等待审核结果
