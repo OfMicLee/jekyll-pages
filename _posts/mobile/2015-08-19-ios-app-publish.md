@@ -42,9 +42,10 @@ tags: [ios,app,publish]
 
 ## 2、进入苹果开发者网站，生成证书Certificate
 如果你拥有一个开发者账户的话，在iOS Dev Center打开Certificates, Indentifiers & Profiles，你就可以看到如下的列表：
-![ios Certificates](https://github.com/OfMicLee/img-hosting/blob/master/app/ios-certificate.png)
+![ios Certificates](https://raw.githubusercontent.com/OfMicLee/img-hosting/master/app/ios-certificate.png)
 
 ### 步骤：
+
 - #### Certificates -> Production -> +
 
 - #### What type of certificate do you need?
