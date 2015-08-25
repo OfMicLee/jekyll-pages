@@ -1,3 +1,2 @@
-MicLee's Blog
+jekyll-pages
 =============
-[前往](http://miclee.cn)
