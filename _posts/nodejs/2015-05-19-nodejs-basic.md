@@ -14,7 +14,8 @@ Node内部采用Google公司的V8引擎，作为JavaScript语言解释器；通�
 
 ### 安装与更新
 
-访问官方网站[nodejs.org](http://nodejs.org)了解安装细节。
+- Homebrew 安装
+- 官网 pkg包
 
 安装完成以后，运行下面的命令，查看是否能正常运行。
 
@@ -841,7 +842,7 @@ $ chmod u+x myscript.js
 $ ./foo.js arg1 arg2 ...
 ```
 
-作为命令行脚本时，`console.log`用于输出内容到标准输出，`process.stdin`用于读取标准输入，`child_process.exec()`用于执行一个shell命令。 
+作为命令行脚本时，`console.log`用于输出内容到标准输出，`process.stdin`用于读取标准输入，`child_process.exec()`用于执行一个shell命令。
 
 ## 参考链接
 
@@ -855,4 +856,3 @@ $ ./foo.js arg1 arg2 ...
 - Fred K Schott, ["npm install --save" No Longer Using Tildes](http://fredkschott.com/post/2014/02/npm-no-longer-defaults-to-tildes/)
 - Satans17, [Node稳定性的研究心得](http://satans17.github.io/2014/05/04/node%E7%A8%B3%E5%AE%9A%E6%80%A7%E7%9A%84%E7%A0%94%E7%A9%B6%E5%BF%83%E5%BE%97/)
 - Axel Rauschmayer, [Write your shell scripts in JavaScript, via Node.js](http://www.2ality.com/2011/12/nodejs-shell-scripting.html)
-
