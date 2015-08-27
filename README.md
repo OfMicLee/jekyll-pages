@@ -1,4 +1,4 @@
-## Welcome to MicLee's Blog!
+## Jekyll Blog
 
 - 新建博文：
 
@@ -16,3 +16,5 @@
 - 本地运行
 
   ```rake preview```
+  
+## 带Disqus评论系统
